@@ -1,6 +1,7 @@
 package pl.polsl.anna.pogorzelska.controller;
 import pl.polsl.anna.pogorzelska.view.View;
 
+import pl.polsl.anna.pogorzelska.model.Mode;
 import pl.polsl.anna.pogorzelska.model.exceptions.InvalidUserInputException;
 import pl.polsl.anna.pogorzelska.model.Transcriptor;
 import pl.polsl.anna.pogorzelska.model.exceptions.ReadFileFailureException;
@@ -33,15 +34,15 @@ public class Controller {
             try {
                 transcriptor.validateTheMode(mode);
                 
-                if ("q".equals(mode)) {
+                if (mode.equals(Mode.QUIT.getValue())) {
                     break;
                 }
                 input = view.getConsoleInput();
-                if ("e".equals(mode)) {
+                if (mode.equals(Mode.ENCRYPTION.getValue())) {
                     String encryptedMessage = transcriptor.encryption(input);
                     view.printMessage(String.format("Encrypted message is %s", encryptedMessage));
                 }
-                else if ("d".equals(mode)) {
+                else if (mode.equals(Mode.DECRYPTION.getValue())) {
                     String decryptedMessage = transcriptor.decrypiton(input);
                     view.printMessage(String.format("Decrypted message is %s", decryptedMessage));
                 }
