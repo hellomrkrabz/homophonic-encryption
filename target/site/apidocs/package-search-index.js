@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"pl.polsl.anna.pogorzelska.controller"},{"l":"pl.polsl.anna.pogorzelska.model"},{"l":"pl.polsl.anna.pogorzelska.model.exceptions"},{"l":"pl.polsl.anna.pogorzelska.view"}];updateSearchResults();
