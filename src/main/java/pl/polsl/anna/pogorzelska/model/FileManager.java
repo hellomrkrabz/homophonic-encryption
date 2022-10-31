@@ -6,7 +6,13 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import pl.polsl.anna.pogorzelska.model.exceptions.ReadFileFailureException;
 
 
@@ -40,24 +46,25 @@ public class FileManager {
      * @return the HashMap containing all letters and its encryption possibilities
      * @throws pl.polsl.anna.pogorzelska.model.exceptions.ReadFileFailureException
      */
-      
-      public HashMap<String,ArrayList<String>> readFile(String filePath) throws ReadFileFailureException  {
-        String line;
-        String key = null;
-        HashMap<String,ArrayList<String>> letters = new HashMap<>();
-        try (BufferedReader alphabethFile = this.openFile(filePath)) {
-            while ((line = alphabethFile.readLine()) != null) {
-                if (line.matches("[a-zA-Z]")) {
-                    key = line;
-                    letters.putIfAbsent(line, new ArrayList<String>());
-                }
-                else
-                    letters.get(key).add(line);
-            }
+    
+public HashMap<String,ArrayList<String>> readFile(String filePath) throws ReadFileFailureException {
+    HashMap<String, ArrayList<String>> letters = new HashMap<>();
+    try (Stream<String> lines = Files.lines(Paths.get(filePath).getFileName())) {
+        lines.filter(line -> line.contains(":"))
+          .forEach(line -> {
+              String[] keyValuePair = line.split(":", 2);
+              String key = keyValuePair[0];
+              String value = keyValuePair[1];
+              if (letters.containsKey(key)) {
+                  letters.get(key).add(value);
+              } else {
+                  letters.put(key, (ArrayList<String>) Stream.of(value).collect(Collectors.toList()));
+              }
+          });
+    } 
+    catch (IOException exc) {
+        throw new ReadFileFailureException("Something wrong with the file, please check that it exiests");
         }
-        catch (IOException exc) {
-            throw new ReadFileFailureException("Something wrong with the file, please check that it exiests");
-        }
-        return letters;
-      }
+    return letters;
+}
 }

@@ -1,8 +1,10 @@
 package pl.polsl.anna.pogorzelska.model;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
  import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.function.Consumer;
 import pl.polsl.anna.pogorzelska.model.exceptions.NonEnglishInputException;
 import pl.polsl.anna.pogorzelska.model.exceptions.NotNumberInputException;
@@ -57,7 +59,7 @@ public class Transcriptor {
         String encrypted = "";
         for (int i = 0; i < secretMessage.length(); i++) {
             if (Character.isWhitespace(secretMessage.charAt(i))) {
-                encrypted += " ";
+                    encrypted += " ";
             }
             else {
                 int index = randomGenerator.nextInt(this.dictionary.get(Character.toString(secretMessage.charAt(i))).size());
@@ -76,7 +78,7 @@ public class Transcriptor {
      * @throws pl.polsl.anna.pogorzelska.model.exceptions.NotNumberInputException
      */  
     
-    
+  
     public String decrypiton(String encryptedMessage) throws NotNumberInputException {
         this.validator.checkValidityOfNumbers(encryptedMessage);
         String decrypted = "";
@@ -98,4 +100,5 @@ public class Transcriptor {
         }
         return decrypted;
     }
+    
 }
