@@ -9,25 +9,43 @@ package pl.polsl.anna.pogorzelska.tests;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.*;
-import org.junit.platform.commons.util.StringUtils;
 
 public class ValidatorTest {
     
     @ParameterizedTest
     @ValueSource(strings = {"e", "d", "q"})
-    public void testValidityOfMode(String candidate) {
+    public void testValidityOfModeWithCorrectInput(String candidate) {
         assertEquals(true, candidate.matches("^[dqe]$"));
     }
     
     @ParameterizedTest
-    @ValueSource(strings = {"cat", "two cats"})
-    public void testValidityOfString(String candidate) {
-        assertEquals(true, candidate.matches("[a-zA-Z\s]+"));
+    @ValueSource(strings = {"eine Katze", "two cats", "TRZY KOTY"})
+    public void testValidityOfStringWithCorrectInput(String candidate) {
+        assertEquals(true, candidate.matches("[a-zA-Z\\s]+"));
     }
     
     @ParameterizedTest
-    @ValueSource(strings = {"909", "991100206 407552"})
-    public void testValidityOfNumbers(String candidate) {
-        assertEquals(true, candidate.matches("[0-9\s]+"));
+    @ValueSource(strings = {"909", "991 100 206", "407552"})
+    public void testValidityOfNumbersWithCorrectInput(String candidate) {
+        assertEquals(true, candidate.matches("[0-9\\s]+"));
+    }
+    
+    @ParameterizedTest
+    @ValueSource(strings = {"exit", "d!", "1 more"})
+    public void testValidityOfModeWithIncorrectInput(String candidate) {
+        assertEquals(false, candidate.matches("^[dqe]$"));
+    }
+    
+    @ParameterizedTest
+    @ValueSource(strings = {"один кот", "2 cats", "!kot"})
+    public void testValidityOfStringWithIncorrectInput(String candidate) {
+        assertEquals(false, candidate.matches("[a-zA-Z\\s]+"));
+    }
+    
+    @ParameterizedTest
+    @ValueSource(strings = {"9@9", "twelve", "111 cats"})
+    public void testValidityOfNumbersWithIncorrectInput(String candidate) {
+        assertEquals(false, candidate.matches("[0-9\\s]+"));
     }
 }
+

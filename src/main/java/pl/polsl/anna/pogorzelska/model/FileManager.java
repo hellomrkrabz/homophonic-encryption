@@ -63,7 +63,7 @@ public HashMap<String,ArrayList<String>> readFile(String filePath) throws ReadFi
           });
     } 
     catch (IOException exc) {
-        throw new ReadFileFailureException("Something wrong with the file, please check that it exiests");
+        throw new ReadFileFailureException("Something wrong with the file, please check that it exists");
         }
     return letters;
 }
