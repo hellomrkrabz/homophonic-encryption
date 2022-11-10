@@ -5,6 +5,7 @@ import pl.polsl.anna.pogorzelska.model.Mode;
 import pl.polsl.anna.pogorzelska.model.exceptions.InvalidUserInputException;
 import pl.polsl.anna.pogorzelska.model.Transcriptor;
 import pl.polsl.anna.pogorzelska.model.exceptions.ReadFileFailureException;
+import pl.polsl.anna.pogorzelska.view.GraphicalUserInterface;
 
 /** 
  * Class responsible for parsing the arguments.
@@ -15,7 +16,7 @@ import pl.polsl.anna.pogorzelska.model.exceptions.ReadFileFailureException;
 
 public class Controller {
 
-        /**
+    /**
      * Function responsible for parsing the arguments.
      *
      * @param args command line parameters
@@ -23,7 +24,9 @@ public class Controller {
      */
     
     public static void main(String[] args) throws ReadFileFailureException {
-        View view = new View();        
+        View view = new View();
+        GraphicalUserInterface userInterface = new GraphicalUserInterface();
+        view.graphicalUserInterface.showGui();        
         view.showModesOptions();
         String input = "";
         boolean terminate = false;

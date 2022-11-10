@@ -10,6 +10,11 @@ import java.util.Scanner;
  */
 
 public class View {
+    public GraphicalUserInterface graphicalUserInterface;
+    
+    public View () {
+        this.graphicalUserInterface= new GraphicalUserInterface();
+    }
     
     /**
      * Function responsible for showing the user possible modes.

@@ -14,9 +14,19 @@ public enum Mode {
     
     private final String modeFromUser;
 
+    /**
+     * Constructor for enum.
+     *
+     * @param modeFromUser mode chosen by the user
+     */
     private Mode(String modeFromUser) {
     this.modeFromUser = modeFromUser;
 }
+    /**
+     * Function responsible for getting input from the user.
+     *
+     * @return input provided by the user
+     */
     public String getValue(){
     return modeFromUser;
 }

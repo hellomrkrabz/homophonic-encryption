@@ -1,62 +1,59 @@
 @options
 @packages
 @argfile
+-classpath
+'C:/Users/hello/Documents/NetBeansProjects/homophonicEncryption/target/classes;C:/Users/hello/Documents/NetBeansProjects/homophonicEncryption/target/test-classes;C:/Users/hello/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.6.0/junit-jupiter-api-5.6.0.jar;C:/Users/hello/.m2/repository/org/apiguardian/apiguardian-api/1.1.0/apiguardian-api-1.1.0.jar;C:/Users/hello/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar;C:/Users/hello/.m2/repository/org/junit/platform/junit-platform-commons/1.6.0/junit-platform-commons-1.6.0.jar;C:/Users/hello/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.6.0/junit-jupiter-params-5.6.0.jar;C:/Users/hello/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.6.0/junit-jupiter-engine-5.6.0.jar;C:/Users/hello/.m2/repository/org/junit/platform/junit-platform-engine/1.6.0/junit-platform-engine-1.6.0.jar'
 -encoding
 'UTF-8'
 -protected
 -source
 '17'
 -sourcepath
-'C:/Users/hello/Documents/NetBeansProjects/homophonicEncryption/src/main/java'
+'C:/Users/hello/Documents/NetBeansProjects/homophonicEncryption/src/test/java'
 -author
 -bottom
 'Copyright &#169; 2022. All rights reserved.'
 -charset
 'UTF-8'
 -d
-'C:/Users/hello/Documents/NetBeansProjects/homophonicEncryption/target/site/apidocs'
+'C:/Users/hello/Documents/NetBeansProjects/homophonicEncryption/target/site/testapidocs'
 -docencoding
 'UTF-8'
 -doctitle
-'homophonicEncryption 1.0-SNAPSHOT API'
+'homophonicEncryption 1.0-SNAPSHOT Test API'
+-link
+'../apidocs'
 -use
 -version
 -windowtitle
-'homophonicEncryption 1.0-SNAPSHOT API'
-pl.polsl.anna.pogorzelska.controller
-pl.polsl.anna.pogorzelska.model.exceptions
-pl.polsl.anna.pogorzelska.model
-pl.polsl.anna.pogorzelska.view
-'C:/Users/hello/Documents/NetBeansProjects/homophonicEncryption/src/main/java/pl/polsl/anna/pogorzelska/controller/Controller.java'
-'C:/Users/hello/Documents/NetBeansProjects/homophonicEncryption/src/main/java/pl/polsl/anna/pogorzelska/controller/packageInfo.java'
-'C:/Users/hello/Documents/NetBeansProjects/homophonicEncryption/src/main/java/pl/polsl/anna/pogorzelska/model/exceptions/InvalidUserInputException.java'
-'C:/Users/hello/Documents/NetBeansProjects/homophonicEncryption/src/main/java/pl/polsl/anna/pogorzelska/model/exceptions/NonEnglishInputException.java'
-'C:/Users/hello/Documents/NetBeansProjects/homophonicEncryption/src/main/java/pl/polsl/anna/pogorzelska/model/exceptions/NotNumberInputException.java'
-'C:/Users/hello/Documents/NetBeansProjects/homophonicEncryption/src/main/java/pl/polsl/anna/pogorzelska/model/exceptions/NotValidModeException.java'
-'C:/Users/hello/Documents/NetBeansProjects/homophonicEncryption/src/main/java/pl/polsl/anna/pogorzelska/model/exceptions/packageInfo.java'
-'C:/Users/hello/Documents/NetBeansProjects/homophonicEncryption/src/main/java/pl/polsl/anna/pogorzelska/model/exceptions/ReadFileFailureException.java'
-'C:/Users/hello/Documents/NetBeansProjects/homophonicEncryption/src/main/java/pl/polsl/anna/pogorzelska/model/FileManager.java'
-'C:/Users/hello/Documents/NetBeansProjects/homophonicEncryption/src/main/java/pl/polsl/anna/pogorzelska/model/packageInfo.java'
-'C:/Users/hello/Documents/NetBeansProjects/homophonicEncryption/src/main/java/pl/polsl/anna/pogorzelska/model/Transcriptor.java'
-'C:/Users/hello/Documents/NetBeansProjects/homophonicEncryption/src/main/java/pl/polsl/anna/pogorzelska/model/Validator.java'
-'C:/Users/hello/Documents/NetBeansProjects/homophonicEncryption/src/main/java/pl/polsl/anna/pogorzelska/view/packageInfo.java'
-'C:/Users/hello/Documents/NetBeansProjects/homophonicEncryption/src/main/java/pl/polsl/anna/pogorzelska/view/View.java'
-C:\Users\hello\Documents\NetBeansProjects\homophonicEncryption\src\main\java = 1665073415658
-C:\Users\hello\Documents\NetBeansProjects\homophonicEncryption\target\site\apidocs\allclasses-index.html = 1666117446370
-C:\Users\hello\Documents\NetBeansProjects\homophonicEncryption\target\site\apidocs\allpackages-index.html = 1666117446372
-C:\Users\hello\Documents\NetBeansProjects\homophonicEncryption\target\site\apidocs\element-list = 1666117446273
-C:\Users\hello\Documents\NetBeansProjects\homophonicEncryption\target\site\apidocs\help-doc.html = 1666117446392
-C:\Users\hello\Documents\NetBeansProjects\homophonicEncryption\target\site\apidocs\index-all.html = 1666117446386
-C:\Users\hello\Documents\NetBeansProjects\homophonicEncryption\target\site\apidocs\index.html = 1666117446359
-C:\Users\hello\Documents\NetBeansProjects\homophonicEncryption\target\site\apidocs\jquery-ui.overrides.css = 1666117446425
-C:\Users\hello\Documents\NetBeansProjects\homophonicEncryption\target\site\apidocs\member-search-index.js = 1666117446376
-C:\Users\hello\Documents\NetBeansProjects\homophonicEncryption\target\site\apidocs\module-search-index.js = 1666117446373
-C:\Users\hello\Documents\NetBeansProjects\homophonicEncryption\target\site\apidocs\overview-summary.html = 1666117446388
-C:\Users\hello\Documents\NetBeansProjects\homophonicEncryption\target\site\apidocs\overview-tree.html = 1666117446356
-C:\Users\hello\Documents\NetBeansProjects\homophonicEncryption\target\site\apidocs\package-search-index.js = 1666117446374
-C:\Users\hello\Documents\NetBeansProjects\homophonicEncryption\target\site\apidocs\script.js = 1666117446395
-C:\Users\hello\Documents\NetBeansProjects\homophonicEncryption\target\site\apidocs\search.js = 1666117446398
-C:\Users\hello\Documents\NetBeansProjects\homophonicEncryption\target\site\apidocs\serialized-form.html = 1666117446309
-C:\Users\hello\Documents\NetBeansProjects\homophonicEncryption\target\site\apidocs\stylesheet.css = 1666117446394
-C:\Users\hello\Documents\NetBeansProjects\homophonicEncryption\target\site\apidocs\tag-search-index.js = 1666117446377
-C:\Users\hello\Documents\NetBeansProjects\homophonicEncryption\target\site\apidocs\type-search-index.js = 1666117446375
+'homophonicEncryption 1.0-SNAPSHOT Test API'
+pl.polsl.anna.pogorzelska.tests
+'C:/Users/hello/Documents/NetBeansProjects/homophonicEncryption/src/test/java/pl/polsl/anna/pogorzelska/tests/FileManagerTest.java'
+'C:/Users/hello/Documents/NetBeansProjects/homophonicEncryption/src/test/java/pl/polsl/anna/pogorzelska/tests/TranscriptorTest.java'
+'C:/Users/hello/Documents/NetBeansProjects/homophonicEncryption/src/test/java/pl/polsl/anna/pogorzelska/tests/ValidatorTest.java'
+C:\Users\hello\Documents\NetBeansProjects\homophonicEncryption\target\classes = 1667460840199
+C:\Users\hello\Documents\NetBeansProjects\homophonicEncryption\target\test-classes = 1667460840200
+C:\Users\hello\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.6.0\junit-jupiter-api-5.6.0.jar = 1666271576412
+C:\Users\hello\.m2\repository\org\apiguardian\apiguardian-api\1.1.0\apiguardian-api-1.1.0.jar = 1666271572380
+C:\Users\hello\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar = 1666271572261
+C:\Users\hello\.m2\repository\org\junit\platform\junit-platform-commons\1.6.0\junit-platform-commons-1.6.0.jar = 1666271576253
+C:\Users\hello\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.6.0\junit-jupiter-params-5.6.0.jar = 1666271577555
+C:\Users\hello\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.6.0\junit-jupiter-engine-5.6.0.jar = 1666271577049
+C:\Users\hello\.m2\repository\org\junit\platform\junit-platform-engine\1.6.0\junit-platform-engine-1.6.0.jar = 1666271577077
+C:\Users\hello\Documents\NetBeansProjects\homophonicEncryption\src\test\java = 1666270700906
+C:\Users\hello\Documents\NetBeansProjects\homophonicEncryption\target\site\testapidocs\allclasses-index.html = 1667461545181
+C:\Users\hello\Documents\NetBeansProjects\homophonicEncryption\target\site\testapidocs\allpackages-index.html = 1667461545186
+C:\Users\hello\Documents\NetBeansProjects\homophonicEncryption\target\site\testapidocs\element-list = 1667461545099
+C:\Users\hello\Documents\NetBeansProjects\homophonicEncryption\target\site\testapidocs\help-doc.html = 1667461545224
+C:\Users\hello\Documents\NetBeansProjects\homophonicEncryption\target\site\testapidocs\index-all.html = 1667461545213
+C:\Users\hello\Documents\NetBeansProjects\homophonicEncryption\target\site\testapidocs\index.html = 1667461545217
+C:\Users\hello\Documents\NetBeansProjects\homophonicEncryption\target\site\testapidocs\jquery-ui.overrides.css = 1667461545282
+C:\Users\hello\Documents\NetBeansProjects\homophonicEncryption\target\site\testapidocs\member-search-index.js = 1667461545194
+C:\Users\hello\Documents\NetBeansProjects\homophonicEncryption\target\site\testapidocs\module-search-index.js = 1667461545189
+C:\Users\hello\Documents\NetBeansProjects\homophonicEncryption\target\site\testapidocs\overview-tree.html = 1667461545162
+C:\Users\hello\Documents\NetBeansProjects\homophonicEncryption\target\site\testapidocs\package-search-index.js = 1667461545191
+C:\Users\hello\Documents\NetBeansProjects\homophonicEncryption\target\site\testapidocs\script.js = 1667461545231
+C:\Users\hello\Documents\NetBeansProjects\homophonicEncryption\target\site\testapidocs\search.js = 1667461545235
+C:\Users\hello\Documents\NetBeansProjects\homophonicEncryption\target\site\testapidocs\stylesheet.css = 1667461545228
+C:\Users\hello\Documents\NetBeansProjects\homophonicEncryption\target\site\testapidocs\tag-search-index.js = 1667461545196
+C:\Users\hello\Documents\NetBeansProjects\homophonicEncryption\target\site\testapidocs\type-search-index.js = 1667461545192
