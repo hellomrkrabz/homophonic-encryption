@@ -1,11 +1,9 @@
 package pl.polsl.anna.pogorzelska.controller;
-import pl.polsl.anna.pogorzelska.view.View;
-
-import pl.polsl.anna.pogorzelska.model.Mode;
-import pl.polsl.anna.pogorzelska.model.exceptions.InvalidUserInputException;
-import pl.polsl.anna.pogorzelska.model.Transcriptor;
+import pl.polsl.anna.pogorzelska.model.*;
+import pl.polsl.anna.pogorzelska.model.exceptions.NonEnglishInputException;
+import pl.polsl.anna.pogorzelska.model.exceptions.NotNumberInputException;
 import pl.polsl.anna.pogorzelska.model.exceptions.ReadFileFailureException;
-import pl.polsl.anna.pogorzelska.view.GraphicalUserInterface;
+import pl.polsl.anna.pogorzelska.view.*;
 
 /** 
  * Class responsible for parsing the arguments.
@@ -15,7 +13,11 @@ import pl.polsl.anna.pogorzelska.view.GraphicalUserInterface;
  */
 
 public class Controller {
-
+    GraphicalUserInterface view;
+    Transcriptor transcriptor;
+    Validator validator;
+    public Controller() {
+    }
     /**
      * Function responsible for parsing the arguments.
      *
@@ -24,35 +26,29 @@ public class Controller {
      */
     
     public static void main(String[] args) throws ReadFileFailureException {
-        View view = new View();
-        GraphicalUserInterface userInterface = new GraphicalUserInterface();
-        view.graphicalUserInterface.showGui();        
-        view.showModesOptions();
+        Controller controller = new Controller();
+        controller.view = new GraphicalUserInterface(controller);
         String input = "";
         boolean terminate = false;
-        Transcriptor transcriptor = new Transcriptor();
-
-        while (true) {
-            String mode = view.chooseMode();
-            try {
-                transcriptor.validateTheMode(mode);
-                
-                if (mode.equals(Mode.QUIT.getValue())) {
-                    break;
-                }
-                input = view.getConsoleInput();
-                if (mode.equals(Mode.ENCRYPTION.getValue())) {
-                    String encryptedMessage = transcriptor.encryption(input);
-                    view.printMessage(String.format("Encrypted message is %s", encryptedMessage));
-                }
-                else if (mode.equals(Mode.DECRYPTION.getValue())) {
-                    String decryptedMessage = transcriptor.decrypiton(input);
-                    view.printMessage(String.format("Decrypted message is %s", decryptedMessage));
-                }
-            }
-            catch(InvalidUserInputException exc) {
-                view.printErrorMessage(exc.getMessage());
-             }
-        }
+        //Transcriptor transcriptor = new Transcriptor();
+        controller.transcriptor = new Transcriptor();
+        controller.validator = new Validator();
     }
+    
+    public String encryptionStarted(String userInput) throws NonEnglishInputException {
+        if (this.validator.checkValidityOfString(userInput) == true) {
+        String output = this.transcriptor.encryption(userInput);
+        return output;
+    }
+        else 
+            return "Something went wrong";
+}       
+    public String decryptionStarted(String userInput) throws NotNumberInputException {
+        if (this.validator.checkValidityOfNumbers(userInput) == true) {
+        String output = this.transcriptor.decrypiton(userInput);
+        return output;
+    }
+        else 
+            return "Something went wrong";
+}
 }

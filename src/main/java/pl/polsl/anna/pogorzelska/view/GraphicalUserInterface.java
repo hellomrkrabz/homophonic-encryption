@@ -4,9 +4,15 @@
  */
 package pl.polsl.anna.pogorzelska.view;
 
+import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.JLabel;
+import pl.polsl.anna.pogorzelska.controller.Controller;
+import pl.polsl.anna.pogorzelska.model.exceptions.NonEnglishInputException;
+import pl.polsl.anna.pogorzelska.model.exceptions.NotNumberInputException;
 
 /** 
  * Class responsible for communicating with the user.
@@ -17,11 +23,14 @@ import javax.swing.JLabel;
 
 public class GraphicalUserInterface extends javax.swing.JFrame {
 
+    private final Controller controller;
     /**
      * Creates new form graphicalUserInterface
      */
-    public GraphicalUserInterface() {
+    public GraphicalUserInterface(Controller controller) {
         initComponents();
+        this.controller = controller;
+        this.setVisible(true);
     }
 
     /**
@@ -33,128 +42,137 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jFrame1 = new javax.swing.JFrame();
-        jFrame2 = new javax.swing.JFrame();
-        jDialog1 = new javax.swing.JDialog();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        buttonGroup1 = new javax.swing.ButtonGroup();
-        buttonGroup2 = new javax.swing.ButtonGroup();
-        jProgressBar1 = new javax.swing.JProgressBar();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
-        encryptionButton = new javax.swing.JRadioButton();
-        decryptionButton = new javax.swing.JRadioButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-
-        javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
-        jFrame1.getContentPane().setLayout(jFrame1Layout);
-        jFrame1Layout.setHorizontalGroup(
-            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        jFrame1Layout.setVerticalGroup(
-            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout jFrame2Layout = new javax.swing.GroupLayout(jFrame2.getContentPane());
-        jFrame2.getContentPane().setLayout(jFrame2Layout);
-        jFrame2Layout.setHorizontalGroup(
-            jFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        jFrame2Layout.setVerticalGroup(
-            jFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
-        jDialog1.getContentPane().setLayout(jDialog1Layout);
-        jDialog1Layout.setHorizontalGroup(
-            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        jDialog1Layout.setVerticalGroup(
-            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        jSplitPane2 = new javax.swing.JSplitPane();
+        jPanel2 = new javax.swing.JPanel();
+        inputField = new javax.swing.JTextField();
+        outputField = new javax.swing.JTextField();
+        encryptionButton = new javax.swing.JButton();
+        decryptionButton = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane3.setViewportView(jTextArea1);
+        jSplitPane2.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+        jSplitPane2.setResizeWeight(0.8);
 
-        jButton1.setText("transcript");
-
-        buttonGroup1.add(encryptionButton);
-        encryptionButton.setText("encryption");
-        encryptionButton.addActionListener(new java.awt.event.ActionListener() {
+        inputField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                encryptionButtonActionPerformed(evt);
+                inputFieldActionPerformed(evt);
             }
         });
 
-        buttonGroup1.add(decryptionButton);
+        outputField.setText("output");
+
+        encryptionButton.setText("encryption");
+        encryptionButton.setActionCommand("encryptionButtonListener");
+
         decryptionButton.setText("decryption");
+        decryptionButton.setActionCommand("decryptionButtonListener");
 
-        jLabel1.setText("Choose mode to be executed");
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(62, 62, 62)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(outputField, javax.swing.GroupLayout.DEFAULT_SIZE, 466, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(encryptionButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(decryptionButton))
+                    .addComponent(inputField, javax.swing.GroupLayout.DEFAULT_SIZE, 466, Short.MAX_VALUE))
+                .addGap(0, 96, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(inputField, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(decryptionButton)
+                    .addComponent(encryptionButton))
+                .addGap(39, 39, 39)
+                .addComponent(outputField, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(65, Short.MAX_VALUE))
+        );
 
-        jLabel2.setText("Provide input to be transcripted");
+        inputField.getAccessibleContext().setAccessibleName("inputText");
+        inputField.getAccessibleContext().setAccessibleDescription("");
+        outputField.getAccessibleContext().setAccessibleName("outputText");
+        encryptionButton.getAccessibleContext().setAccessibleName("");
+        decryptionButton.getAccessibleContext().setAccessibleName("");
+
+        jSplitPane2.setTopComponent(jPanel2);
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable2);
+
+        jSplitPane2.setRightComponent(jScrollPane2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(encryptionButton)
-                            .addComponent(jLabel1)
-                            .addComponent(decryptionButton)
-                            .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 129, Short.MAX_VALUE)
-                        .addComponent(jButton1))
-                    .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(24, Short.MAX_VALUE)
+                .addComponent(jSplitPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 624, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(encryptionButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(decryptionButton)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(jSplitPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 541, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(24, Short.MAX_VALUE))
         );
-
-        encryptionButton.getAccessibleContext().setAccessibleName("encryptionButton");
-        decryptionButton.getAccessibleContext().setAccessibleName("decryptionButton");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    //ButtonGroup modeGroup = new ButtonGroup();
-    //modeGroup.add(encryptionButton);
-    private void encryptionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encryptionButtonActionPerformed
+    public void actionPerformed(ActionEvent e) {
+        if ("encryptionButtonListener".equals(e.getActionCommand())) {
+            try {
+                this.encryptionButtonListener();
+            } catch (NonEnglishInputException ex) {
+                System.err.print("something went wrong");
+            }
+        }
+        else if ("decryptionButtonListener".equals(e.getActionCommand()))
+        {
+        }
+    }
+        private void encryptionButtonListener() throws NonEnglishInputException {
+            String input = inputField.getText();
+            String output = this.controller.encryptionStarted(input);
+            this.outputTextChanged(output);
+        }
+        
+        private void decryptionButtonListener() throws NotNumberInputException {
+            String input = inputField.getText();
+            String output = this.controller.decryptionStarted(input);
+            this.outputTextChanged(output);
+        }
+        
+        private void outputTextChanged(String outputProvided) {
+            outputField.setText(outputProvided);
+        }
+    
+    private void inputFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_encryptionButtonActionPerformed
+    }//GEN-LAST:event_inputFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -162,7 +180,7 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
     public void showGui() {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GraphicalUserInterface().setVisible(true);
+               // new GraphicalUserInterface().setVisible(true);
             }
         });
    /**
@@ -177,14 +195,14 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
     /**
     * Function responsible for getting mode chosen by the user.
     */   
-    public void getSelectedMode(ItemEvent e) {
-       Object source = e.getItemSelectable();
-        if (source == encryptionButton) {
-            System.out.print("encryption mode");
-        } else if (source == decryptionButton) {
-            System.out.print("encryption mode");
-        }
-    }
+//    public void getSelectedMode(ItemEvent e) {
+//       Object source = e.getItemSelectable();
+//        if (source == encryptionButton) {
+//            System.out.print("encryption mode");
+//        } else if (source == decryptionButton) {
+//            System.out.print("encryption mode");
+//        }
+//    }
    /**
     * Function responsible for starting transcription.
     */       
@@ -199,19 +217,13 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.ButtonGroup buttonGroup2;
-    private javax.swing.JRadioButton decryptionButton;
-    private javax.swing.JRadioButton encryptionButton;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JDialog jDialog1;
-    private javax.swing.JFrame jFrame1;
-    private javax.swing.JFrame jFrame2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JProgressBar jProgressBar1;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JButton decryptionButton;
+    private javax.swing.JButton encryptionButton;
+    private javax.swing.JTextField inputField;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSplitPane jSplitPane2;
+    private javax.swing.JTable jTable2;
+    private javax.swing.JTextField outputField;
     // End of variables declaration//GEN-END:variables
 }

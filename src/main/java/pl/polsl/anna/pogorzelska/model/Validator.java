@@ -52,12 +52,15 @@ public class Validator {
     /**
      * Function responsible for providing information whether the validity check was successful
      * @param message input provided by the user
+     * @return 
      * @throws NonEnglishInputException 
      */
     
-    public void checkValidityOfString(String message) throws NonEnglishInputException {
-        if (inLatinLettersRange(message) == false)
+    public boolean checkValidityOfString(String message) throws NonEnglishInputException {
+        if (inLatinLettersRange(message) == false) 
             throw new NonEnglishInputException("Content of input outside english alphabet.");
+        else
+            return true;
     }
     
     /**
@@ -66,9 +69,11 @@ public class Validator {
      * @throws NotNumberInputException 
      */
     
-    public void checkValidityOfNumbers(String message) throws NotNumberInputException {
+    public boolean checkValidityOfNumbers(String message) throws NotNumberInputException {
         if (inNumberRange(message) == false)
             throw new NotNumberInputException("Content of input outside number range.");
+        else
+            return true;
     }
     
 
