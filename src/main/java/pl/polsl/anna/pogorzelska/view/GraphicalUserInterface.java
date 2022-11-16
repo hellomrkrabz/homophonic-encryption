@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import pl.polsl.anna.pogorzelska.controller.Controller;
 import pl.polsl.anna.pogorzelska.model.exceptions.NonEnglishInputException;
 import pl.polsl.anna.pogorzelska.model.exceptions.NotNumberInputException;
@@ -30,6 +31,15 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
     public GraphicalUserInterface(Controller controller) {
         initComponents();
         this.controller = controller;
+        historyTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Input", "Output"
+            }
+        ));
         this.setVisible(true);
     }
 
@@ -42,19 +52,25 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jSplitPane2 = new javax.swing.JSplitPane();
+        splitPane = new javax.swing.JSplitPane();
         jPanel2 = new javax.swing.JPanel();
         inputField = new javax.swing.JTextField();
         outputField = new javax.swing.JTextField();
         encryptionButton = new javax.swing.JButton();
         decryptionButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        historyTable = new javax.swing.JTable();
+        menu = new javax.swing.JMenuBar();
+        menuManualTab = new javax.swing.JMenu();
+        encryptionMenuItem = new javax.swing.JMenuItem();
+        decryptionMenuItem = new javax.swing.JMenuItem();
+        menuFileTab = new javax.swing.JMenu();
+        closeMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jSplitPane2.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
-        jSplitPane2.setResizeWeight(0.8);
+        splitPane.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+        splitPane.setResizeWeight(0.8);
 
         inputField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -62,13 +78,24 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
             }
         });
 
+        outputField.setEditable(false);
         outputField.setText("output");
 
         encryptionButton.setText("encryption");
         encryptionButton.setActionCommand("encryptionButtonListener");
+        encryptionButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                encryptionButtonActionPerformed(evt);
+            }
+        });
 
         decryptionButton.setText("decryption");
         decryptionButton.setActionCommand("decryptionButtonListener");
+        decryptionButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                decryptionButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -105,9 +132,9 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
         encryptionButton.getAccessibleContext().setAccessibleName("");
         decryptionButton.getAccessibleContext().setAccessibleName("");
 
-        jSplitPane2.setTopComponent(jPanel2);
+        splitPane.setTopComponent(jPanel2);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        historyTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -118,9 +145,49 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(historyTable);
+        if (historyTable.getColumnModel().getColumnCount() > 0) {
+            historyTable.getColumnModel().getColumn(0).setHeaderValue("Title 1");
+            historyTable.getColumnModel().getColumn(1).setHeaderValue("Title 2");
+            historyTable.getColumnModel().getColumn(2).setHeaderValue("Title 3");
+            historyTable.getColumnModel().getColumn(3).setHeaderValue("Title 4");
+        }
 
-        jSplitPane2.setRightComponent(jScrollPane2);
+        splitPane.setRightComponent(jScrollPane2);
+
+        menuManualTab.setText("Manual");
+
+        encryptionMenuItem.setText("Encryption");
+        encryptionMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                encryptionMenuItemActionPerformed(evt);
+            }
+        });
+        menuManualTab.add(encryptionMenuItem);
+
+        decryptionMenuItem.setText("Decryption");
+        decryptionMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                decryptionMenuItemActionPerformed(evt);
+            }
+        });
+        menuManualTab.add(decryptionMenuItem);
+
+        menu.add(menuManualTab);
+
+        menuFileTab.setText("File");
+
+        closeMenuItem.setText("Close");
+        closeMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                closeMenuItemActionPerformed(evt);
+            }
+        });
+        menuFileTab.add(closeMenuItem);
+
+        menu.add(menuFileTab);
+
+        setJMenuBar(menu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -128,102 +195,80 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(24, Short.MAX_VALUE)
-                .addComponent(jSplitPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 624, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(splitPane, javax.swing.GroupLayout.PREFERRED_SIZE, 624, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addComponent(jSplitPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 541, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addComponent(splitPane, javax.swing.GroupLayout.PREFERRED_SIZE, 541, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+       
 
-    public void actionPerformed(ActionEvent e) {
-        if ("encryptionButtonListener".equals(e.getActionCommand())) {
-            try {
-                this.encryptionButtonListener();
-            } catch (NonEnglishInputException ex) {
-                System.err.print("something went wrong");
-            }
-        }
-        else if ("decryptionButtonListener".equals(e.getActionCommand()))
-        {
-        }
+    private void outputTextChanged(String outputProvided) {
+        outputField.setText(outputProvided);
     }
-        private void encryptionButtonListener() throws NonEnglishInputException {
-            String input = inputField.getText();
-            String output = this.controller.encryptionStarted(input);
-            this.outputTextChanged(output);
-        }
-        
-        private void decryptionButtonListener() throws NotNumberInputException {
-            String input = inputField.getText();
-            String output = this.controller.decryptionStarted(input);
-            this.outputTextChanged(output);
-        }
-        
-        private void outputTextChanged(String outputProvided) {
-            outputField.setText(outputProvided);
-        }
     
     private void inputFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_inputFieldActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public void showGui() {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-               // new GraphicalUserInterface().setVisible(true);
-            }
-        });
-   /**
-    * Function responsible for getting user input provided.
-    */     
-    
-    }
-    
-    private void getUserInput() {
-        
-    }
-    /**
-    * Function responsible for getting mode chosen by the user.
-    */   
-//    public void getSelectedMode(ItemEvent e) {
-//       Object source = e.getItemSelectable();
-//        if (source == encryptionButton) {
-//            System.out.print("encryption mode");
-//        } else if (source == decryptionButton) {
-//            System.out.print("encryption mode");
-//        }
-//    }
-   /**
-    * Function responsible for starting transcription.
-    */       
-    private void startTranscription() {
-        
-    }
-   /**
-    * Function responsible for showing the user the result of transcription.
-    */       
-    private void showTranscriptedMessage() {
-        
+    private void encryptionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encryptionButtonActionPerformed
+        String input = inputField.getText();
+        try {
+            String output = this.controller.encryptionStarted(input);
+            this.outputTextChanged(output);
+        } catch (NonEnglishInputException ex) {
+            showPopUpMessage("Please correct input for encryption");
+        }
+    }//GEN-LAST:event_encryptionButtonActionPerformed
+
+    private void decryptionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decryptionButtonActionPerformed
+        String input = inputField.getText();
+        try {
+            String output = this.controller.decryptionStarted(input);
+            this.outputTextChanged(output);
+        } catch (NotNumberInputException ex) {
+            showPopUpMessage("Please correct input for decryption");
+        }
+    }//GEN-LAST:event_decryptionButtonActionPerformed
+
+    private void encryptionMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encryptionMenuItemActionPerformed
+        this.showPopUpMessage("Correct input for encryption consists from letters in latin alphabet range and whitespaces.");
+    }//GEN-LAST:event_encryptionMenuItemActionPerformed
+
+    private void decryptionMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decryptionMenuItemActionPerformed
+        this.showPopUpMessage("Correct input for decryption consists from numbers and whitespaces.");
+    }//GEN-LAST:event_decryptionMenuItemActionPerformed
+
+    private void closeMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeMenuItemActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_closeMenuItemActionPerformed
+
+
+    public void showPopUpMessage(String message) {
+        JOptionPane.showMessageDialog(null, message);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem closeMenuItem;
     private javax.swing.JButton decryptionButton;
+    private javax.swing.JMenuItem decryptionMenuItem;
     private javax.swing.JButton encryptionButton;
+    private javax.swing.JMenuItem encryptionMenuItem;
+    private javax.swing.JTable historyTable;
     private javax.swing.JTextField inputField;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JSplitPane jSplitPane2;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JMenuBar menu;
+    private javax.swing.JMenu menuFileTab;
+    private javax.swing.JMenu menuManualTab;
     private javax.swing.JTextField outputField;
+    private javax.swing.JSplitPane splitPane;
     // End of variables declaration//GEN-END:variables
 }
