@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import pl.polsl.anna.pogorzelska.controller.Controller;
 import pl.polsl.anna.pogorzelska.model.exceptions.NonEnglishInputException;
 import pl.polsl.anna.pogorzelska.model.exceptions.NotNumberInputException;
@@ -33,8 +34,6 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
         this.controller = controller;
         historyTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null}
             },
             new String [] {
                 "Input", "Output"
@@ -123,7 +122,7 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
                     .addComponent(encryptionButton))
                 .addGap(39, 39, 39)
                 .addComponent(outputField, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addContainerGap(81, Short.MAX_VALUE))
         );
 
         inputField.getAccessibleContext().setAccessibleName("inputText");
@@ -153,7 +152,7 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
             historyTable.getColumnModel().getColumn(3).setHeaderValue("Title 4");
         }
 
-        splitPane.setRightComponent(jScrollPane2);
+        splitPane.setBottomComponent(jScrollPane2);
 
         menuManualTab.setText("Manual");
 
@@ -223,6 +222,7 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
         try {
             String output = this.controller.encryptionStarted(input);
             this.outputTextChanged(output);
+            this.appendHistoryAction(input, output);
         } catch (NonEnglishInputException ex) {
             showPopUpMessage("Please correct input for encryption");
         }
@@ -233,6 +233,7 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
         try {
             String output = this.controller.decryptionStarted(input);
             this.outputTextChanged(output);
+            this.appendHistoryAction(input, output);
         } catch (NotNumberInputException ex) {
             showPopUpMessage("Please correct input for decryption");
         }
@@ -250,7 +251,10 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_closeMenuItemActionPerformed
 
-
+    public void appendHistoryAction(String input, String output) {
+        DefaultTableModel model = (DefaultTableModel) historyTable.getModel();
+        model.addRow(new String []{input, output});    
+    }
     public void showPopUpMessage(String message) {
         JOptionPane.showMessageDialog(null, message);
     }
