@@ -9,7 +9,7 @@ import pl.polsl.anna.pogorzelska.view.*;
  * Class responsible for parsing the arguments.
  * 
  * @author Anna Pogorzelska
- * @version 1.2
+ * @version 2.0
  */
 
 public class Controller {
@@ -28,27 +28,38 @@ public class Controller {
     public static void main(String[] args) throws ReadFileFailureException {
         Controller controller = new Controller();
         controller.view = new GraphicalUserInterface(controller);
-        String input = "";
-        boolean terminate = false;
         //Transcriptor transcriptor = new Transcriptor();
         controller.transcriptor = new Transcriptor();
         controller.validator = new Validator();
     }
     
-    public String encryptionStarted(String userInput) throws NonEnglishInputException {
-        if (this.validator.checkValidityOfString(userInput) == true) {
-        String output = this.transcriptor.encryption(userInput);
-        return output;
-    }
-        else 
-            return "Something went wrong";
-}       
-    public String decryptionStarted(String userInput) throws NotNumberInputException {
-        if (this.validator.checkValidityOfNumbers(userInput) == true) {
-        String output = this.transcriptor.decrypiton(userInput);
-        return output;
-    }
-        else 
-            return "Something went wrong";
+    /**
+     * Function that starts the encryption procedure
+     * @param userInput String provided by the user
+     */
+    public void encryptionStarted(String userInput) {
+        try {
+            if (this.validator.checkValidityOfString(userInput) == true) {
+                String output = this.transcriptor.encryption(userInput);
+                this.view.setOutput(userInput, output);
+            }  
+        } catch (NonEnglishInputException ex) {
+            view.showPopUpMessage("Wrong input");
+        }
+        } 
+       
+    /**
+     * Function that starts the decryption procedure
+     * @param userInput String provided by the user
+     */
+    public void decryptionStarted(String userInput) {
+        try {
+            if (this.validator.checkValidityOfNumbers(userInput) == true) {
+                String output = this.transcriptor.decrypiton(userInput);
+                this.view.setOutput(userInput, output);
+            }
+        } catch (NotNumberInputException ex) {
+            view.showPopUpMessage("Wrong input");
+        }
 }
 }

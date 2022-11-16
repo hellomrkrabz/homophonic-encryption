@@ -9,8 +9,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import pl.polsl.anna.pogorzelska.model.exceptions.ReadFileFailureException;
@@ -20,24 +18,10 @@ import pl.polsl.anna.pogorzelska.model.exceptions.ReadFileFailureException;
  * Class responsible for opening and reading the transcription dictionary file.
  * 
  * @author Anna Pogorzelska
- * @version 1.2
+ * @version 1.3
  */
 
 public class FileManager {
-    
-    /**
-     * Function responsible for opening the dictionary file.
-     *
-     * @param filePath path to the dictionary file
-     * @return the BufferedReader of provided file
-     * @throws java.io.FileNotFoundException
-     */
-    
-    private BufferedReader openFile(String filePath) throws FileNotFoundException {
-        File dictionary = new File(filePath);
-        BufferedReader myReader = new BufferedReader(new FileReader(dictionary));
-        return myReader;
-  }
     
     /**
      * Function responsible for reading the dictionary file.

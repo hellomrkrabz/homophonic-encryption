@@ -6,12 +6,9 @@ package pl.polsl.anna.pogorzelska.tests;
  * @version 1.0
  */
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 import pl.polsl.anna.pogorzelska.model.Transcriptor;
-import pl.polsl.anna.pogorzelska.model.exceptions.NonEnglishInputException;
 import pl.polsl.anna.pogorzelska.model.exceptions.NotNumberInputException;
 import pl.polsl.anna.pogorzelska.model.exceptions.ReadFileFailureException;
 
@@ -22,25 +19,6 @@ public class TranscriptorTest {
     @BeforeEach 
     public void setTranscriptor() throws ReadFileFailureException {
         transcriptor = new Transcriptor();
-    }
-    
-    @Test
-    public void testEncryptionWithCorrectInput() {
-        try {
-            assertEquals("571725", transcriptor.encryption("hf"));
-        } catch (NonEnglishInputException ex) {
-            fail("Correct input, incorrect result");
-        }
-    }
-    
-    @Test
-    public void testEncryptionWithIncorrectInput() {
-        try {
-            assertNotEquals("571725", transcriptor.encryption("cat"));
-        } catch (NonEnglishInputException ex) {
-                        fail("Incorrect input, correct result");
-
-        }
     }
     
     @Test

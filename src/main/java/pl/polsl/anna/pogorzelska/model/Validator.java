@@ -66,6 +66,7 @@ public class Validator {
     /**
      * Function responsible for providing information whether the validity check was successful
      * @param message input provided by the user
+     * @return whether the input contains only numbers
      * @throws NotNumberInputException 
      */
     

@@ -4,23 +4,15 @@
  */
 package pl.polsl.anna.pogorzelska.view;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ItemEvent;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.ButtonGroup;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import pl.polsl.anna.pogorzelska.controller.Controller;
-import pl.polsl.anna.pogorzelska.model.exceptions.NonEnglishInputException;
-import pl.polsl.anna.pogorzelska.model.exceptions.NotNumberInputException;
 
 /** 
  * Class responsible for communicating with the user.
  * 
  * @author Anna Pogorzelska
- * @version 1.0
+ * @version 1.2
  */
 
 public class GraphicalUserInterface extends javax.swing.JFrame {
@@ -28,6 +20,7 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
     private final Controller controller;
     /**
      * Creates new form graphicalUserInterface
+     * @param controller 
      */
     public GraphicalUserInterface(Controller controller) {
         initComponents();
@@ -69,7 +62,7 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         splitPane.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
-        splitPane.setResizeWeight(0.8);
+        splitPane.setResizeWeight(0.6);
 
         inputField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -109,7 +102,7 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(decryptionButton))
                     .addComponent(inputField, javax.swing.GroupLayout.DEFAULT_SIZE, 466, Short.MAX_VALUE))
-                .addGap(0, 96, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -122,7 +115,7 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
                     .addComponent(encryptionButton))
                 .addGap(39, 39, 39)
                 .addComponent(outputField, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         inputField.getAccessibleContext().setAccessibleName("inputText");
@@ -208,7 +201,11 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
        
-
+    
+    /**
+     * Function responsible for writing the output into output textbox.
+     *
+     */
     private void outputTextChanged(String outputProvided) {
         outputField.setText(outputProvided);
     }
@@ -217,44 +214,79 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_inputFieldActionPerformed
 
+    public void setOutput (String input, String output) {
+        this.outputTextChanged(output);
+        this.appendHistoryAction(input, output);
+    }
+     
+    /**
+     * Listener function for encryption button, it is starting the encryption procedure.
+     *
+     * @param evt Event of clicking encryption button
+     */
     private void encryptionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encryptionButtonActionPerformed
         String input = inputField.getText();
-        try {
-            String output = this.controller.encryptionStarted(input);
-            this.outputTextChanged(output);
-            this.appendHistoryAction(input, output);
-        } catch (NonEnglishInputException ex) {
-            showPopUpMessage("Please correct input for encryption");
-        }
+        this.controller.encryptionStarted(input);
     }//GEN-LAST:event_encryptionButtonActionPerformed
-
+    
+    /**
+     * Listener function for decryption button, it is starting the encryption procedure.
+     *
+     * @param evt Event of clicking decryption button
+     */
     private void decryptionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decryptionButtonActionPerformed
         String input = inputField.getText();
-        try {
-            String output = this.controller.decryptionStarted(input);
-            this.outputTextChanged(output);
-            this.appendHistoryAction(input, output);
-        } catch (NotNumberInputException ex) {
-            showPopUpMessage("Please correct input for decryption");
-        }
+        this.controller.decryptionStarted(input);
     }//GEN-LAST:event_decryptionButtonActionPerformed
 
+    /**
+     * Function responsible for displaying manual for encryption in the menu.
+     *
+     * @param evt Event of clicking encryption menu button
+     */
+    
     private void encryptionMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encryptionMenuItemActionPerformed
         this.showPopUpMessage("Correct input for encryption consists from letters in latin alphabet range and whitespaces.");
     }//GEN-LAST:event_encryptionMenuItemActionPerformed
 
+    /**
+     * Function responsible for displaying manual for decryption in the menu.
+     *
+     * @param evt Event of clicking decryption menu button
+     */
+    
     private void decryptionMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decryptionMenuItemActionPerformed
         this.showPopUpMessage("Correct input for decryption consists from numbers and whitespaces.");
     }//GEN-LAST:event_decryptionMenuItemActionPerformed
 
+    /**
+     * Function responsible for stopping the program when the user chooses this option from menu.
+     *
+     * @param evt Event of clicking close program menu button
+     */
+    
     private void closeMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeMenuItemActionPerformed
         System.exit(0);
     }//GEN-LAST:event_closeMenuItemActionPerformed
-
+    
+    /**
+     * Function responsible for writing a new row into history table.
+     *
+     * @param input The text provided by the user
+     * @param output The transcripted text
+     */
+    
     public void appendHistoryAction(String input, String output) {
         DefaultTableModel model = (DefaultTableModel) historyTable.getModel();
         model.addRow(new String []{input, output});    
     }
+    
+    /**
+     * Function responsible for displaying a pop up window.
+     *
+     * @param message Output to be displayed inside pop up window.
+     */
+    
     public void showPopUpMessage(String message) {
         JOptionPane.showMessageDialog(null, message);
     }

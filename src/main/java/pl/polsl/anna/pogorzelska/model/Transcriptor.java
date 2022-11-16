@@ -1,12 +1,8 @@
 package pl.polsl.anna.pogorzelska.model;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
  import java.util.Map.Entry;
-import java.util.Optional;
-import java.util.function.Consumer;
-import pl.polsl.anna.pogorzelska.model.exceptions.NonEnglishInputException;
 import pl.polsl.anna.pogorzelska.model.exceptions.NotNumberInputException;
 import pl.polsl.anna.pogorzelska.model.exceptions.NotValidModeException;
 import pl.polsl.anna.pogorzelska.model.exceptions.ReadFileFailureException;
@@ -15,7 +11,7 @@ import pl.polsl.anna.pogorzelska.model.exceptions.ReadFileFailureException;
  * Class responsible for the logic behind transcription.
  * 
  * @author Anna Pogorzelska
- * @version 1.1
+ * @version 1.2
  */
 
 public class Transcriptor {
@@ -37,25 +33,13 @@ public class Transcriptor {
     }
     
     /**
-     * Function responsible for obtaining the correct validator
-     *
-     * @return Certain validator
-     */
-
-    public boolean validateTheMode(String mode) throws NotValidModeException {
-        return this.validator.checkValidityOfMode(mode);
-    }
-    
-    /**
      * Function responsible for encrypting the input provided.
      *
      * @param secretMessage message provided by the user
      * @return the encrypted version of provided input
-     * @throws pl.polsl.anna.pogorzelska.model.exceptions.NonEnglishInputException
      */
         
-    public String encryption(String secretMessage) throws NonEnglishInputException {
-        this.validator.checkValidityOfString(secretMessage);
+    public String encryption(String secretMessage) {
         String encrypted = "";
         for (int i = 0; i < secretMessage.length(); i++) {
             if (Character.isWhitespace(secretMessage.charAt(i))) {
@@ -80,7 +64,6 @@ public class Transcriptor {
     
   
     public String decrypiton(String encryptedMessage) throws NotNumberInputException {
-        this.validator.checkValidityOfNumbers(encryptedMessage);
         String decrypted = "";
         String currentlyDecrypted ="";
         for (int i = 0; i < encryptedMessage.length(); i++) {
