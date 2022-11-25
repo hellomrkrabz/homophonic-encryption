@@ -1,1 +1,0 @@
-typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"pl.polsl.anna.pogorzelska.tests","l":"FileManagerTest"},{"p":"pl.polsl.anna.pogorzelska.tests","l":"TranscriptorTest"},{"p":"pl.polsl.anna.pogorzelska.tests","l":"ValidatorTest"}];updateSearchResults();
