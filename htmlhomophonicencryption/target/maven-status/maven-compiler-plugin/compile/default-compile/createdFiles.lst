@@ -1,0 +1,8 @@
+pl\polsl\anna\pogorzelska\htmlhomophonicencryption\exceptions\NotValidModeException.class
+pl\polsl\anna\pogorzelska\htmlhomophonicencryption\FileManager.class
+pl\polsl\anna\pogorzelska\htmlhomophonicencryption\servlets\FormServlet.class
+pl\polsl\anna\pogorzelska\htmlhomophonicencryption\exceptions\ReadFileFailureException.class
+pl\polsl\anna\pogorzelska\htmlhomophonicencryption\servlets\EncryptionServlet.class
+pl\polsl\anna\pogorzelska\htmlhomophonicencryption\Validator.class
+pl\polsl\anna\pogorzelska\htmlhomophonicencryption\resources\JakartaEE8Resource.class
+pl\polsl\anna\pogorzelska\htmlhomophonicencryption\servlets\FileUploadServlet.class
