@@ -58,16 +58,7 @@ public class DecryptionServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String input = request.getParameter("input");
         
-        Integer count = (Integer) session.getAttribute("count");
-        if (count == null)
-        {
-            count = 1;
-        } else 
-        {
-            count = count + 1;
-        }
 
-        session.setAttribute("count", count);
         
         try {
             if (this.validator.checkValidityOfNumbers(input ) == true) {
@@ -83,15 +74,29 @@ public class DecryptionServlet extends HttpServlet {
         else if (this.correctInput == false) {
             response.sendError(response.SC_BAD_REQUEST, "You should give an input from numbers range!");
         }
-        else if (this.correctInput == true) {
+        else if (this.validator.alphabetCorrectness(input, this.transcriptor.getDictionary()) == false)
+        {
+            response.sendError(response.SC_BAD_REQUEST, "Provided input outside of alphabet file range!");
+        }
+        else {
+            Integer count = (Integer) session.getAttribute("count");
+                if (count == null)
+                {
+                    count = 1;
+                } else 
+                {
+                    count = count + 1;
+                }
+
+        session.setAttribute("count", count);
             output = this.transcriptor.decrypiton(input);
             out.println("<html>\n<body>\n<h1>Input is " + input + "!</h1>\n");
             out.println("<html>\n<body>\n<h1>Output is " + output + "!</h1>\n");
             String entry = "Decryption " + "-" + input + "-" + output;
             session.setAttribute(count.toString() + "entry", entry);
+            getServletContext().getRequestDispatcher("/History").include(request, response);
         }
         this.correctInput = false;
-        getServletContext().getRequestDispatcher("/History").include(request, response);
     }
 
     /**
@@ -117,7 +122,7 @@ public class DecryptionServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
         decryptionRequest(request, response);
     }

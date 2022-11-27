@@ -1,5 +1,8 @@
 package pl.polsl.anna.pogorzelska.htmlhomophonicencryption.model;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import pl.polsl.anna.pogorzelska.htmlhomophonicencryption.exceptions.NonEnglishInputException;
 import pl.polsl.anna.pogorzelska.htmlhomophonicencryption.exceptions.NotNumberInputException;
 import pl.polsl.anna.pogorzelska.htmlhomophonicencryption.exceptions.NotValidModeException;
@@ -8,10 +11,11 @@ import pl.polsl.anna.pogorzelska.htmlhomophonicencryption.exceptions.NotValidMod
  * Class responsible for validating inputs provided by the user.
  * 
  * @author Anna Pogorzelska
- * @version 1.1
+ * @version 2.0
  */
 
 public class Validator {
+    
     
      /**
      * Function responsible for checking whether the input contains only letters from english alphabet.
@@ -33,6 +37,30 @@ public class Validator {
     
     private boolean inNumberRange(String message) {
         return message.matches("[0-9\s]+");
+    }
+    
+    /**
+     * Function responsible for checking whether provided input is in alphabet range.
+     *
+     * @param encryptedMessage the message to decrypt
+     * @param dictionary alphabet structure
+     * @return whether element of the input is contained in the alphabet file
+     */  
+    public boolean alphabetCorrectness(String encryptedMessage, HashMap<String,ArrayList<String>> dictionary) {
+        boolean correctInput = false;
+        encryptedMessage = encryptedMessage.replaceAll(" ", "");
+        String currentlyDecrypted ="";
+        for (int i = 0; i < encryptedMessage.length(); i++) {
+                currentlyDecrypted += encryptedMessage.charAt(i);
+                if (currentlyDecrypted.length() == 3) {
+                    for (Map.Entry<String,ArrayList<String>> entry : dictionary.entrySet()) {
+                        if (entry.getValue().contains(currentlyDecrypted)) 
+                            correctInput = true;
+                    }
+                    currentlyDecrypted = "";
+                }
+            }
+        return correctInput;
     }
     
     /**

@@ -9,7 +9,7 @@ import pl.polsl.anna.pogorzelska.htmlhomophonicencryption.exceptions.ReadFileFai
  * Class responsible for the logic behind transcription.
  * 
  * @author Anna Pogorzelska
- * @version 1.3
+ * @version 1.4
  */
 
 public class Transcriptor {
@@ -24,20 +24,22 @@ public class Transcriptor {
      *
      * @throws pl.polsl.anna.pogorzelska.htmlhomophonicencryption.exceptions.ReadFileFailureException
      */
-    
     public Transcriptor () throws ReadFileFailureException {
         this.alphabetmanager = new FileManager();
         this.dictionary = this.alphabetmanager.readFile(this.filePath);
     }
    
+    public HashMap<String,ArrayList<String>> getDictionary ()
+    {
+        return this.dictionary;
+    }
     
     /**
      * Function responsible for encrypting the input provided.
      *
      * @param secretMessage message provided by the user
      * @return the encrypted version of provided input
-     */
-        
+     */    
     public String encryption(String secretMessage) {
         String encrypted = "";
         for (int i = 0; i < secretMessage.length(); i++) {
@@ -58,9 +60,7 @@ public class Transcriptor {
      *
      * @param encryptedMessage the encrypted version of message
      * @return the decrypted version of provided input
-     */  
-    
-  
+     */
     public String decrypiton(String encryptedMessage) {
         String decrypted = "";
         String currentlyDecrypted ="";
@@ -78,8 +78,8 @@ public class Transcriptor {
                     currentlyDecrypted = "";
                 }
             }
-        }
-        return decrypted;
+       }  
+    return decrypted;
     }
     
 }
