@@ -1,4 +1,4 @@
-package pl.polsl.anna.pogorzelska.htmlhomophonicencryption;
+package pl.polsl.anna.pogorzelska.htmlhomophonicencryption.model;
 
 import pl.polsl.anna.pogorzelska.htmlhomophonicencryption.exceptions.NonEnglishInputException;
 import pl.polsl.anna.pogorzelska.htmlhomophonicencryption.exceptions.NotNumberInputException;

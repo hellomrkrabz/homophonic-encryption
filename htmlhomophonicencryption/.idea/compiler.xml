@@ -12,7 +12,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="htmlhomophonicencryption" options="-endorseddirs C:\Users\hello\Documents\NetBeansProjects\htmlhomophonicencryption\target/endorsed" />
+      <module name="htmlhomophonicencryption" options="-endorseddirs C:\Users\hello\Documents\NetBeansProjects\homophonicEncryption\htmlhomophonicencryption\target/endorsed" />
     </option>
   </component>
 </project>

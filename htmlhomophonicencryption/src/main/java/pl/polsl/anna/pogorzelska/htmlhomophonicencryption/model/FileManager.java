@@ -1,19 +1,11 @@
-package pl.polsl.anna.pogorzelska.htmlhomophonicencryption;
+package pl.polsl.anna.pogorzelska.htmlhomophonicencryption.model;
 
-import java.io.File;  
 import java.util.HashMap;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import pl.polsl.anna.pogorzelska.htmlhomophonicencryption.exceptions.ReadFileFailureException;
@@ -23,7 +15,7 @@ import pl.polsl.anna.pogorzelska.htmlhomophonicencryption.exceptions.ReadFileFai
  * Class responsible for opening and reading the transcription dictionary file.
  * 
  * @author Anna Pogorzelska
- * @version 1.3
+ * @version 1.5
  */
 
 public class FileManager {
@@ -33,12 +25,12 @@ public class FileManager {
      *
      * @param filePath path to the dictionary file
      * @return the HashMap containing all letters and its encryption possibilities
-     * @throws pl.polsl.anna.pogorzelska.model.exceptions.ReadFileFailureException
+     * @throws pl.polsl.anna.pogorzelska.htmlhomophonicencryption.exceptions.ReadFileFailureException
      */
     
 public HashMap<String,ArrayList<String>> readFile(String filePath) throws ReadFileFailureException {
     HashMap<String, ArrayList<String>> letters = new HashMap<>();
-    InputStream input = this.getClass().getClassLoader().getResourceAsStream("/files/alphabet.txt");
+    InputStream input = this.getClass().getClassLoader().getResourceAsStream(filePath);
     try (Stream<String> lines = new BufferedReader(new InputStreamReader(input, "UTF-8")).lines()) {
         lines.filter(line -> line.contains(":"))
           .forEach(line -> {
@@ -53,7 +45,6 @@ public HashMap<String,ArrayList<String>> readFile(String filePath) throws ReadFi
           });
     } 
     catch (IOException exc) {
-        exc.printStackTrace();
         throw new ReadFileFailureException("Something wrong with the file, please check that it exists");
         }
     return letters;

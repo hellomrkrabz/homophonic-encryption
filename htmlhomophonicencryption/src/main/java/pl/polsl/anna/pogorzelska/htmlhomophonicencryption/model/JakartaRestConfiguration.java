@@ -1,4 +1,4 @@
-package pl.polsl.anna.pogorzelska.htmlhomophonicencryption;
+package pl.polsl.anna.pogorzelska.htmlhomophonicencryption.model;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;

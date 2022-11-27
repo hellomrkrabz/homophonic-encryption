@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package pl.polsl.anna.pogorzelska.htmlhomophonicencryption.servlets;
 
 import java.io.IOException;
@@ -9,70 +5,72 @@ import java.io.PrintWriter;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import pl.polsl.anna.pogorzelska.htmlhomophonicencryption.Transcriptor;
-import pl.polsl.anna.pogorzelska.htmlhomophonicencryption.Validator;
+import javax.servlet.http.HttpSession;
+import pl.polsl.anna.pogorzelska.htmlhomophonicencryption.model.Transcriptor;
+import pl.polsl.anna.pogorzelska.htmlhomophonicencryption.model.Validator;
 import pl.polsl.anna.pogorzelska.htmlhomophonicencryption.exceptions.NonEnglishInputException;
 import pl.polsl.anna.pogorzelska.htmlhomophonicencryption.exceptions.ReadFileFailureException;
 
-/**
- * Main class of the servlet that demonstrates parameter download given during
- * servlet initialization
- *
- * @author Gall Anonim
- * @version 1.0
+/** 
+ * Servlet responsible for encryption of provided input. It communicates with model. 
+ * This servlet also displays the content of history servlet.
+ * 
+ * @author Anna Pogorzelska
+ * @version 1.1
  */
 @WebServlet("/Encrypt")
 public class EncryptionServlet extends HttpServlet {
 
-    /**
-     * Collection of statistics
-     */
-    private final HashMap<String, String> stats;
     Transcriptor transcriptor;
     String output;
     Validator validator;
     boolean correctInput;
 
     /**
-     * Constructor initiating statistics collection
+     * Constructor creating encryption servlet's object.
      * @throws pl.polsl.anna.pogorzelska.htmlhomophonicencryption.exceptions.ReadFileFailureException
      */
     public EncryptionServlet() throws ReadFileFailureException {
-        this.stats = new HashMap<>();
         this.transcriptor = new Transcriptor();
         this.validator = new Validator();
         this.correctInput = false;
     }
-//ADD GET REAL PATH
+
     /**
-     * Handles the HTTP <code>POST</code> method.
+     * Main function of decryption servlet. It processes requests and initialises encryption procedure. It works the same for both GET and POST methods.
      *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response)
+    
+    public void encryptionRequest(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        //response.setContentType("text/html; charset=ISO-8859-2");
-        //FileInputStream in = new FileInputStream(alphabetFile);
         PrintWriter out = response.getWriter();
-        // Get parameter values - firstName i lastName
+        HttpSession session = request.getSession();
         String input = request.getParameter("input");
+        
+        
+        Integer count = (Integer) session.getAttribute("count");
+        if (count == null)
+        {
+            count = 1;
+        } else 
+        {
+            count = count + 1;
+        }
+
+        session.setAttribute("count", count);
+        
         try {
             if (this.validator.checkValidityOfString(input) ==true) {
                 correctInput = true;
             }
         } catch (NonEnglishInputException ex) {
         }
-        // FirstName or lastName was not given - send error message
         if (input.length() == 0 || input == null) {
             response.sendError(response.SC_BAD_REQUEST, "You should give a parameter!");
         } 
@@ -81,12 +79,18 @@ public class EncryptionServlet extends HttpServlet {
         }
         else {
             output = this.transcriptor.encryption(input);
-            out.println("<html>\n<body>\n<h1>Input is " + input + "!!!</h1>\n");
-            out.println("<html>\n<body>\n<h1>Output is " + output + "!!!</h1>\n");
+            out.println("<html>\n<body>\n<h1>Input is " + input + "!</h1>\n");
+            out.println("<html>\n<body>\n<h1>Output is " + output + "!</h1>\n");
+            
+            String entry = "Encryption " + "-" + input + "-" + output;
+
+            session.setAttribute(count.toString() + "entry", entry);
+            getServletContext().getRequestDispatcher("/History").include(request, response);
+
             }
         this.correctInput = false;
     }
-
+    
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -95,18 +99,25 @@ public class EncryptionServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        encryptionRequest(request, response);
+    }
+    
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        response.setContentType("text/plain; charset=ISO-8859-2");
-        PrintWriter out = response.getWriter();
-
-        out.println("Passed parameters:");
-
-        Enumeration enumeration = request.getParameterNames();
-        while (enumeration.hasMoreElements()) {
-            String name = (String) enumeration.nextElement();
-            out.println(name + " = " + request.getParameter(name));
-        }
+        encryptionRequest(request, response);
     }
 }

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package pl.polsl.anna.pogorzelska.htmlhomophonicencryption.servlets;
 
 import java.io.IOException;
@@ -11,41 +7,116 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.Cookie;
 
-/**
- *
- * @author hello
+/** 
+ * Servlet responsible for displaying the history of operations performed during current session. 
+ * Moreover, it includes cookies responsible for keeping track of visits on this servlet. 
+ * 
+ * @author Anna Pogorzelska
+ * @version 1.2
  */
 @WebServlet(name = "History", urlPatterns = {"/History"})
 public class HistoryServlet extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
+     * Main function of history servlet. It processes requests and writes operations into a table which is later displayed. It works the same for both GET and POST methods.
      *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+  protected void historyRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession(false);
+        
+        Cookie[] cookies = request.getCookies();
+        
+
+        Integer visitCount = (Integer) session.getAttribute("visitCount");
+        
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("visitCount")) {
+                    visitCount = Integer.valueOf(cookie.getValue());
+                    break;
+                }
+            }
+        }
+        
+        if (visitCount == null)
+        {
+            visitCount = 1;
+        } else 
+        {
+            visitCount = visitCount + 1;
+            Cookie cookie = new Cookie("visitCount", visitCount.toString());
+            response.addCookie(cookie);
+        }
+
+        session.setAttribute("visitCount", visitCount);
+        
+
+
+        
         try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet HistoryServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet HistoryServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            out.print("""
+                             <style>
+                             table {
+                               font-family: "font-family:verdana";
+                               border-collapse: collapse;
+                               width: 100%;
+                             }
+                     
+                             td, th {
+                               border: 2px solid #f3d3e4;
+                               text-align: center;
+                               padding: 10px;
+                             }
+                     
+                             tr:nth-child(even) {
+                               background-color: #f3d9d3;
+                             }
+                             </style>
+                             <table>
+                               <tr>
+                                 <th>Operation</th>
+                                 <th>Input</th>
+                                 <th>Output</th>
+                               </tr>
+                       """);
+            
+            if (session != null) {
+                Integer count = (Integer) session.getAttribute("count");
+                if (count != null) {
+                out.println("History visit count is " + visitCount.toString()+ "!\n");
+                    for (int i = 1; i <= count; i++) {
+                        String entries = (String) session.getAttribute(i + "entry");
+                        if (entries != null) {
+                            String[] entry = entries.split("-");
+                            if (entry.length != 0) {
+                                out.println("<tr>");
+                                out.println("<td>" + entry[0] + "</td>");
+                                out.println("<td>" + entry[1] + "</td>");
+                                out.println("<td>" + entry[2] + "</td>");
+                                out.println("</tr>");
+                            }
+                        }
+                    }
+                }
+            }
+
+            out.print("""     
+                          </table><br>
+                            <button onclick="location.href='/htmlhomophonicencryption/'">Main Page</button>
+                            </body>
+                    </html> 
+                      """);
         }
     }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -57,7 +128,7 @@ public class HistoryServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        historyRequest(request, response);
     }
 
     /**
@@ -71,17 +142,10 @@ public class HistoryServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        historyRequest(request, response);
+    }
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 
-}
+
+

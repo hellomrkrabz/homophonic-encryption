@@ -1,17 +1,15 @@
-package pl.polsl.anna.pogorzelska.htmlhomophonicencryption;
+package pl.polsl.anna.pogorzelska.htmlhomophonicencryption.model;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
  import java.util.Map.Entry;
-import pl.polsl.anna.pogorzelska.htmlhomophonicencryption.exceptions.NotNumberInputException;
-import pl.polsl.anna.pogorzelska.htmlhomophonicencryption.exceptions.NotValidModeException;
 import pl.polsl.anna.pogorzelska.htmlhomophonicencryption.exceptions.ReadFileFailureException;
 
 /** 
  * Class responsible for the logic behind transcription.
  * 
  * @author Anna Pogorzelska
- * @version 1.2
+ * @version 1.3
  */
 
 public class Transcriptor {
@@ -19,18 +17,19 @@ public class Transcriptor {
     private FileManager alphabetmanager;
     private HashMap<String,ArrayList<String>> dictionary;
     private Validator validator = new Validator();
-    private final String filePath = "/src/main/resources/files/alphabet.txt";
+    private final String filePath = "/files/alphabet.txt";
 
      /**
-     * Default constructor function for transcriptor. It preloads the dictionary file.
+     * Default constructor function for transcriptor.It preloads the dictionary file.
      *
-     * @throws pl.polsl.anna.pogorzelska.model.exceptions.ReadFileFailureException
+     * @throws pl.polsl.anna.pogorzelska.htmlhomophonicencryption.exceptions.ReadFileFailureException
      */
     
     public Transcriptor () throws ReadFileFailureException {
         this.alphabetmanager = new FileManager();
         this.dictionary = this.alphabetmanager.readFile(this.filePath);
     }
+   
     
     /**
      * Function responsible for encrypting the input provided.
@@ -59,7 +58,6 @@ public class Transcriptor {
      *
      * @param encryptedMessage the encrypted version of message
      * @return the decrypted version of provided input
-     * @throws pl.polsl.anna.pogorzelska.htmlhomophonicencryption.exceptions.NotNumberInputException
      */  
     
   
